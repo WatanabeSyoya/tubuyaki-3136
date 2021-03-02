@@ -13,6 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+
+Auth::routes();
+
+Route::get('/', 'PostController@index')->name('posts.index');
+Route::get('/posts/search', 'PostController@search')->name('posts.search');
+
+Route::resource('/posts', 'PostController',  ['except' => ['index']]);
+Route::resource('/users', 'UserController');
+Route::resource('/comments', 'CommentController')->middleware('auth');
